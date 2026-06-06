@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KicauAir — Terbang Bebas, Terbang Nyaman</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sky: #0A1628;
+    --sky-mid: #0F2245;
+    --sky-light: #1B3A6B;
+    --gold: #D4A843;
+    --gold-light: #F0C86A;
+    --gold-pale: #FFF8E8;
+    --cloud: #E8EFF8;
+    --white: #FFFFFF;
+    --text-dim: #8BA3C4;
+    --accent: #E8543A;
+    --accent-soft: #FF7A62;
+    --border: rgba(212,168,67,0.25);
+    --radius: 12px;
+    --radius-lg: 20px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--sky);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 4rem;
+    background: rgba(10,22,40,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 0.5px solid var(--border);
+  }
+  .logo {
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--white);
+  }
+  .logo-bird {
+    width: 36px; height: 36px;
+    background: var(--gold);
+    border-radius: 50% 50% 40% 60%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+  .logo span { color: var(--gold); }
+  nav ul { list-style: none; display: flex; gap: 2.5rem; }
+  nav ul a {
+    text-decoration: none; color: var(--text-dim);
+    font-size: 0.9rem; font-weight: 500;
+    transition: color 0.2s;
+    letter-spacing: 0.03em;
+  }
+  nav ul a:hover { color: var(--white); }
+  .nav-cta {
+    background: var(--gold); color: var(--sky) !important;
+    padding: 0.5rem 1.4rem; border-radius: 8px;
+    font-weight: 600 !important;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--gold-light) !important; color: var(--sky) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: flex-start;
+    padding: 0 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 80% 50%, rgba(26,58,107,0.5) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 10% 80%, rgba(212,168,67,0.08) 0%, transparent 60%);
+  }
+  .stars {
+    position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+  }
+  .star {
+    position: absolute; background: white; border-radius: 50%;
+    animation: twinkle 3s infinite alternate;
+  }
+  @keyframes twinkle { from { opacity: 0.2; } to { opacity: 0.8; } }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(212,168,67,0.15);
+    border: 0.5px solid var(--border);
+    border-radius: 100px;
+    padding: 0.4rem 1rem;
+    font-size: 0.8rem; color: var(--gold);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    max-width: 720px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  .hero h1 em { color: var(--gold); font-style: normal; }
+  .hero p {
+    max-width: 500px; margin-top: 1.5rem;
+    color: var(--text-dim); line-height: 1.7;
+    font-size: 1.05rem;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+  .hero-btns {
+    display: flex; gap: 1rem; margin-top: 2.5rem;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+  .btn-primary {
+    background: var(--gold); color: var(--sky);
+    padding: 0.85rem 2rem; border-radius: 10px;
+    font-weight: 600; font-size: 0.95rem;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .btn-ghost {
+    background: transparent; color: var(--white);
+    padding: 0.85rem 2rem; border-radius: 10px;
+    font-weight: 500; font-size: 0.95rem;
+    text-decoration: none;
+    border: 0.5px solid rgba(255,255,255,0.2);
+    cursor: pointer; transition: border-color 0.2s, background 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.05); }
+
+  .hero-plane {
+    position: absolute; right: -60px; top: 50%;
+    transform: translateY(-50%);
+    font-size: 18rem; opacity: 0.04;
+    pointer-events: none; user-select: none;
+    filter: blur(2px);
+  }
+
+  .hero-stats {
+    display: flex; gap: 3rem; margin-top: 4rem;
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+  .stat-item {}
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 700; color: var(--gold);
+  }
+  .stat-label { font-size: 0.8rem; color: var(--text-dim); margin-top: 2px; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── BOOKING WIDGET ── */
+  .booking-section {
+    padding: 0 4rem 5rem;
+    position: relative; z-index: 10;
+  }
+  .booking-card {
+    background: rgba(15,34,69,0.9);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2rem 2.5rem;
+    backdrop-filter: blur(20px);
+  }
+  .booking-tabs {
+    display: flex; gap: 0; margin-bottom: 1.5rem;
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px; padding: 4px;
+    width: fit-content;
+  }
+  .tab {
+    padding: 0.5rem 1.25rem; border-radius: 8px;
+    font-size: 0.875rem; font-weight: 500; cursor: pointer;
+    transition: all 0.2s; color: var(--text-dim);
+    border: none; background: transparent;
+  }
+  .tab.active { background: var(--gold); color: var(--sky); }
+  .booking-form {
+    display: grid; grid-template-columns: 1fr 1fr 160px 160px auto; gap: 12px;
+    align-items: end;
+  }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-label {
+    font-size: 0.75rem; color: var(--text-dim);
+    text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600;
+  }
+  .form-input {
+    background: rgba(255,255,255,0.06);
+    border: 0.5px solid rgba(255,255,255,0.12);
+    border-radius: 8px; padding: 0.75rem 1rem;
+    color: var(--white); font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem; outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+  .form-input:focus { border-color: var(--gold); }
+  .form-input::placeholder { color: var(--text-dim); }
+  .form-input option { background: var(--sky-mid); }
+  .search-btn {
+    background: var(--gold); color: var(--sky);
+    border: none; border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 700; font-size: 0.9rem;
+    cursor: pointer; transition: background 0.2s;
+    white-space: nowrap; font-family: 'DM Sans', sans-serif;
+  }
+  .search-btn:hover { background: var(--gold-light); }
+
+  /* ── SECTION COMMON ── */
+  section { padding: 6rem 4rem; }
+  .section-eyebrow {
+    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--gold); font-weight: 600; margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem); font-weight: 700;
+    line-height: 1.15; max-width: 600px;
+  }
+
+  /* ── DESTINATIONS ── */
+  .destinations { background: var(--sky-mid); }
+  .dest-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem; margin-top: 2.5rem;
+  }
+  .dest-card {
+    position: relative; border-radius: var(--radius-lg); overflow: hidden;
+    cursor: pointer; group: true;
+    transition: transform 0.3s;
+  }
+  .dest-card:hover { transform: translateY(-4px); }
+  .dest-card:first-child { grid-row: span 2; }
+  .dest-img {
+    width: 100%; height: 200px; object-fit: cover;
+    background: var(--sky-light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 4rem;
+  }
+  .dest-card:first-child .dest-img { height: 100%; min-height: 420px; }
+  .dest-info {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 1.25rem;
+    background: linear-gradient(transparent, rgba(10,22,40,0.95));
+  }
+  .dest-city { font-size: 1.1rem; font-weight: 600; }
+  .dest-meta { font-size: 0.8rem; color: var(--text-dim); margin-top: 2px; }
+  .dest-price {
+    position: absolute; top: 1rem; right: 1rem;
+    background: var(--gold); color: var(--sky);
+    padding: 4px 10px; border-radius: 6px;
+    font-size: 0.8rem; font-weight: 700;
+  }
+
+  /* ── CLASSES ── */
+  .classes-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+  .class-card {
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg); padding: 2rem;
+    position: relative; overflow: hidden;
+    transition: border-color 0.3s, transform 0.2s;
+    cursor: pointer;
+    background: rgba(15,34,69,0.5);
+  }
+  .class-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+  .class-card.featured {
+    border-color: var(--gold);
+    background: rgba(212,168,67,0.06);
+  }
+  .class-badge {
+    display: inline-block; background: var(--gold); color: var(--sky);
+    font-size: 0.7rem; padding: 3px 10px; border-radius: 100px;
+    font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    margin-bottom: 1.25rem;
+  }
+  .class-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem;
+  }
+  .class-price {
+    font-size: 0.85rem; color: var(--text-dim); margin-bottom: 1.5rem;
+  }
+  .class-price strong { color: var(--gold); font-size: 1.3rem; }
+  .class-perks { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .class-perks li {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.9rem; color: #B8C9E0;
+  }
+  .perk-icon { color: var(--gold); font-size: 1rem; flex-shrink: 0; }
+  .class-glyph {
+    position: absolute; right: 1.5rem; top: 1.5rem;
+    font-size: 3rem; opacity: 0.08;
+  }
+
+  /* ── PROMO ── */
+  .promos { background: var(--sky-mid); }
+  .promo-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+  .promo-card {
+    border-radius: var(--radius-lg); padding: 1.5rem;
+    border: 0.5px solid var(--border);
+    background: rgba(10,22,40,0.8);
+    position: relative; overflow: hidden;
+    transition: transform 0.2s;
+  }
+  .promo-card:hover { transform: translateY(-3px); }
+  .promo-tag {
+    display: inline-block;
+    background: var(--accent);
+    color: white; font-size: 0.7rem; font-weight: 700;
+    padding: 3px 10px; border-radius: 100px;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+  }
+  .promo-name { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.4rem; }
+  .promo-desc { font-size: 0.85rem; color: var(--text-dim); line-height: 1.6; }
+  .promo-discount {
+    margin-top: 1rem; font-family: 'Playfair Display', serif;
+    font-size: 2.5rem; font-weight: 900; color: var(--gold);
+    line-height: 1;
+  }
+  .promo-discount span { font-size: 1rem; font-weight: 400; color: var(--text-dim); font-family: 'DM Sans', sans-serif; }
+  .promo-period {
+    font-size: 0.8rem; color: var(--text-dim); margin-top: 0.25rem;
+  }
+  .promo-bg-glyph {
+    position: absolute; right: -1rem; bottom: -1rem;
+    font-size: 6rem; opacity: 0.04; pointer-events: none;
+  }
+
+  /* ── BAGGAGE ── */
+  .baggage-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+    margin-top: 2.5rem; align-items: center;
+  }
+  .bag-visual {
+    display: flex; flex-direction: column; gap: 1rem;
+  }
+  .bag-row {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    background: rgba(15,34,69,0.5);
+    transition: border-color 0.2s;
+  }
+  .bag-row:hover { border-color: var(--gold); }
+  .bag-icon { font-size: 2rem; }
+  .bag-info {}
+  .bag-cat { font-weight: 600; font-size: 0.95rem; }
+  .bag-detail { font-size: 0.8rem; color: var(--text-dim); margin-top: 2px; }
+  .bag-fee {
+    margin-left: auto; text-align: right;
+    font-weight: 700; color: var(--gold);
+  }
+  .bag-text h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 700; margin-bottom: 1rem;
+  }
+  .bag-text p { color: var(--text-dim); line-height: 1.7; margin-bottom: 1.5rem; }
+
+  /* ── CHECK-IN ── */
+  .checkin { background: var(--sky-mid); }
+  .checkin-steps {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+  .step-card {
+    text-align: center; padding: 2rem 1.5rem;
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: rgba(10,22,40,0.6);
+    position: relative;
+  }
+  .step-num {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: rgba(212,168,67,0.15);
+    border: 0.5px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.25rem;
+    font-family: 'Playfair Display', serif; font-weight: 700;
+    color: var(--gold); font-size: 1.1rem;
+  }
+  .step-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.5rem; }
+  .step-desc { font-size: 0.82rem; color: var(--text-dim); line-height: 1.6; }
+
+  /* ── FLEET ── */
+  .fleet-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+  .fleet-card {
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg); padding: 1.75rem;
+    background: rgba(15,34,69,0.5);
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .fleet-card:hover { border-color: var(--gold); transform: translateY(-3px); }
+  .fleet-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+  .fleet-name { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; }
+  .fleet-type { font-size: 0.8rem; color: var(--text-dim); margin-bottom: 1rem; }
+  .fleet-stats { display: flex; flex-direction: column; gap: 8px; }
+  .fleet-stat {
+    display: flex; justify-content: space-between;
+    font-size: 0.85rem;
+  }
+  .fleet-stat-label { color: var(--text-dim); }
+  .fleet-stat-val { font-weight: 500; }
+  .fleet-status {
+    display: inline-block; margin-top: 1rem;
+    padding: 4px 12px; border-radius: 100px;
+    font-size: 0.75rem; font-weight: 600;
+    background: rgba(99,196,45,0.15); color: #78E044;
+    border: 0.5px solid rgba(99,196,45,0.3);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: rgba(5,11,20,1);
+    border-top: 0.5px solid var(--border);
+    padding: 4rem 4rem 2rem;
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem;
+    margin-bottom: 3rem;
+  }
+  .footer-brand .logo { margin-bottom: 1rem; }
+  .footer-tagline { color: var(--text-dim); font-size: 0.9rem; line-height: 1.7; max-width: 280px; }
+  .footer-col h4 {
+    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--gold); font-weight: 600; margin-bottom: 1.25rem;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col ul li a {
+    color: var(--text-dim); text-decoration: none; font-size: 0.875rem;
+    transition: color 0.2s;
+  }
+  .footer-col ul li a:hover { color: var(--white); }
+  .footer-bottom {
+    border-top: 0.5px solid var(--border); padding-top: 2rem;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.8rem; color: var(--text-dim);
+  }
+
+  /* ── MODAL BOOKING CONFIRM ── */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 200;
+    background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
+    align-items: center; justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--sky-mid); border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg); padding: 2.5rem;
+    max-width: 500px; width: 90%; position: relative;
+    animation: fadeUp 0.3s ease;
+  }
+  .modal-close {
+    position: absolute; top: 1rem; right: 1rem;
+    background: none; border: none; color: var(--text-dim);
+    font-size: 1.4rem; cursor: pointer;
+  }
+  .modal h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; margin-bottom: 0.5rem;
+  }
+  .modal p { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .flight-result {
+    background: rgba(255,255,255,0.04);
+    border: 0.5px solid var(--border); border-radius: 10px;
+    padding: 1.25rem; margin-bottom: 1rem;
+    display: flex; justify-content: space-between; align-items: center;
+    cursor: pointer; transition: border-color 0.2s;
+  }
+  .flight-result:hover { border-color: var(--gold); }
+  .flight-route { font-weight: 600; }
+  .flight-time { font-size: 0.8rem; color: var(--text-dim); margin-top: 3px; }
+  .flight-fare { text-align: right; }
+  .flight-fare strong { color: var(--gold); display: block; font-size: 1.1rem; }
+  .flight-fare small { color: var(--text-dim); font-size: 0.75rem; }
+
+  .section-header { margin-bottom: 0; }
+  .section-header + * { margin-top: 0; }
+
+  /* scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--sky); }
+  ::-webkit-scrollbar-thumb { background: var(--sky-light); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    <div class="logo-bird">🐦</div>
+    Kicau<span>Air</span>
+  </div>
+  <ul>
+    <li><a href="#destinations">Destinasi</a></li>
+    <li><a href="#classes">Kelas</a></li>
+    <li><a href="#promo">Promo</a></li>
+    <li><a href="#baggage">Bagasi</a></li>
+    <li><a href="#fleet">Armada</a></li>
+    <li><a href="#booking-section" class="nav-cta">Pesan Tiket</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="stars" id="stars"></div>
+  <div class="hero-plane">✈</div>
+
+  <div class="hero-badge">✦ Maskapai Kebanggaan Nusantara</div>
+  <h1>Terbang <em>Bebas</em>,<br>Terbang <em>Nyaman</em>.</h1>
+  <p>Dari Sabang sampai Merauke, KicauAir mengantarkan Anda ke seluruh penjuru Nusantara dengan pelayanan hangat dan harga yang bersahabat.</p>
+
+  <div class="hero-btns">
+    <button class="btn-primary" onclick="document.getElementById('booking-section').scrollIntoView({behavior:'smooth'})">
+      ✈ Cari Penerbangan
+    </button>
+    <button class="btn-ghost" onclick="document.getElementById('destinations').scrollIntoView({behavior:'smooth'})">
+      🗺 Lihat Destinasi
+    </button>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num">48+</div>
+      <div class="stat-label">Rute Domestik</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">24</div>
+      <div class="stat-label">Armada Pesawat</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">2.1M+</div>
+      <div class="stat-label">Penumpang / Tahun</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">98.4%</div>
+      <div class="stat-label">On-Time Performance</div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING WIDGET -->
+<div class="booking-section" id="booking-section">
+  <div class="booking-card">
+    <div class="booking-tabs">
+      <button class="tab active" onclick="setTab(this,'Sekali Jalan')">Sekali Jalan</button>
+      <button class="tab" onclick="setTab(this,'Pulang Pergi')">Pulang Pergi</button>
+      <button class="tab" onclick="setTab(this,'Multi-Kota')">Multi-Kota</button>
+    </div>
+    <div class="booking-form">
+      <div class="form-group">
+        <label class="form-label">Dari</label>
+        <select class="form-input">
+          <option>Jakarta (CGK)</option>
+          <option>Surabaya (SUB)</option>
+          <option>Bali (DPS)</option>
+          <option>Medan (KNO)</option>
+          <option>Makassar (UPG)</option>
+          <option>Yogyakarta (JOG)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Tujuan</label>
+        <select class="form-input">
+          <option>Bali (DPS)</option>
+          <option>Jakarta (CGK)</option>
+          <option>Surabaya (SUB)</option>
+          <option>Medan (KNO)</option>
+          <option>Makassar (UPG)</option>
+          <option>Labuan Bajo (LBJ)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Berangkat</label>
+        <input type="date" class="form-input" value="2026-06-15">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Penumpang</label>
+        <select class="form-input">
+          <option>1 Dewasa</option>
+          <option>2 Dewasa</option>
+          <option>3 Dewasa</option>
+          <option>2 Dewasa, 1 Anak</option>
+          <option>4 Dewasa</option>
+        </select>
+      </div>
+      <button class="search-btn" onclick="openModal()">Cari →</button>
+    </div>
+  </div>
+</div>
+
+<!-- DESTINATIONS -->
+<section class="destinations" id="destinations">
+  <div class="section-eyebrow">Populer Saat Ini</div>
+  <div class="section-title">Destinasi Favorit<br>Penumpang Kami</div>
+  <div class="dest-grid">
+    <div class="dest-card">
+      <div class="dest-img" style="background: linear-gradient(135deg,#0A4D68,#1B6CA8); font-size:6rem; min-height:420px;">🏝️</div>
+      <div class="dest-info">
+        <div class="dest-city">Bali — Denpasar</div>
+        <div class="dest-meta">Pulau Dewata • 1j 30m dari Jakarta</div>
+      </div>
+      <div class="dest-price">Dari Rp 420rb</div>
+    </div>
+    <div class="dest-card">
+      <div class="dest-img" style="background: linear-gradient(135deg,#2D6A4F,#40916C);">🌋</div>
+      <div class="dest-info">
+        <div class="dest-city">Yogyakarta</div>
+        <div class="dest-meta">Kota Pelajar • 1j 10m</div>
+      </div>
+      <div class="dest-price">Dari Rp 350rb</div>
+    </div>
+    <div class="dest-card">
+      <div class="dest-img" style="background: linear-gradient(135deg,#5E2D79,#9B5DE5);">🏙️</div>
+      <div class="dest-info">
+        <div class="dest-city">Makassar</div>
+        <div class="dest-meta">Kota Daeng • 1j 45m</div>
+      </div>
+      <div class="dest-price">Dari Rp 530rb</div>
+    </div>
+    <div class="dest-card">
+      <div class="dest-img" style="background: linear-gradient(135deg,#7B3F00,#C87941);">🐉</div>
+      <div class="dest-info">
+        <div class="dest-city">Labuan Bajo</div>
+        <div class="dest-meta">Surga Tersembunyi • 2j 30m</div>
+      </div>
+      <div class="dest-price">Dari Rp 680rb</div>
+    </div>
+    <div class="dest-card">
+      <div class="dest-img" style="background: linear-gradient(135deg,#006D77,#83C5BE);">🌊</div>
+      <div class="dest-info">
+        <div class="dest-city">Manado</div>
+        <div class="dest-meta">Kota Tinutuan • 2j 15m</div>
+      </div>
+      <div class="dest-price">Dari Rp 720rb</div>
+    </div>
+  </div>
+</section>
+
+<!-- CLASSES -->
+<section id="classes">
+  <div class="section-eyebrow">Pilihan Kursi</div>
+  <div class="section-title">Temukan Kelas yang<br>Sesuai Kebutuhan Anda</div>
+  <div class="classes-grid">
+    <div class="class-card">
+      <div class="class-glyph">💺</div>
+      <div class="class-badge">Ekonomi</div>
+      <div class="class-name">Economy Class</div>
+      <div class="class-price">Mulai <strong>Rp 350rb</strong> / orang</div>
+      <ul class="class-perks">
+        <li><span class="perk-icon">✓</span> Bagasi kabin 7 kg</li>
+        <li><span class="perk-icon">✓</span> Snack & minuman ringan</li>
+        <li><span class="perk-icon">✓</span> USB charging</li>
+        <li><span class="perk-icon">✓</span> Pilih kursi (berbayar)</li>
+        <li><span class="perk-icon">✗</span> Makanan panas</li>
+        <li><span class="perk-icon">✗</span> Prioritas boarding</li>
+      </ul>
+    </div>
+    <div class="class-card featured">
+      <div class="class-glyph">⭐</div>
+      <div class="class-badge">Terpopuler</div>
+      <div class="class-name">Business Class</div>
+      <div class="class-price">Mulai <strong>Rp 1.2jt</strong> / orang</div>
+      <ul class="class-perks">
+        <li><span class="perk-icon">✓</span> Bagasi kabin 15 kg</li>
+        <li><span class="perk-icon">✓</span> Makanan panas pilihan</li>
+        <li><span class="perk-icon">✓</span> Minuman premium</li>
+        <li><span class="perk-icon">✓</span> Kursi recliner lebar</li>
+        <li><span class="perk-icon">✓</span> Prioritas boarding</li>
+        <li><span class="perk-icon">✓</span> Akses lounge bandara</li>
+      </ul>
+    </div>
+    <div class="class-card">
+      <div class="class-glyph">👑</div>
+      <div class="class-badge">Eksklusif</div>
+      <div class="class-name">First Class</div>
+      <div class="class-price">Mulai <strong>Rp 3.5jt</strong> / orang</div>
+      <ul class="class-perks">
+        <li><span class="perk-icon">✓</span> Bagasi kabin 20 kg</li>
+        <li><span class="perk-icon">✓</span> Fine dining di ketinggian</li>
+        <li><span class="perk-icon">✓</span> Wine & cocktail selection</li>
+        <li><span class="perk-icon">✓</span> Lie-flat seat</li>
+        <li><span class="perk-icon">✓</span> Personal butler service</li>
+        <li><span class="perk-icon">✓</span> Lounge VIP dedikasi</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROMOS -->
+<section class="promos" id="promo">
+  <div class="section-eyebrow">Penawaran Terbatas</div>
+  <div class="section-title">Promo Spesial<br>Bulan Ini</div>
+  <div class="promo-grid">
+    <div class="promo-card">
+      <div class="promo-bg-glyph">✈</div>
+      <div class="promo-tag">Flash Sale</div>
+      <div class="promo-name">Terbang Bebas Weekend</div>
+      <div class="promo-desc">Dapatkan diskon besar untuk semua penerbangan domestik setiap Sabtu–Minggu. Berlaku untuk pemesanan minimal H-3.</div>
+      <div class="promo-discount">30% <span>off</span></div>
+      <div class="promo-period">Berlaku hingga 30 Juni 2026</div>
+    </div>
+    <div class="promo-card">
+      <div class="promo-bg-glyph">🎓</div>
+      <div class="promo-tag">Khusus Pelajar</div>
+      <div class="promo-name">Tarif Mahasiswa</div>
+      <div class="promo-desc">Tunjukkan kartu pelajar aktif dan nikmati harga spesial untuk semua rute. Min. pemesanan Rp 300.000.</div>
+      <div class="promo-discount">20% <span>off</span></div>
+      <div class="promo-period">Berlaku sepanjang 2026</div>
+    </div>
+    <div class="promo-card">
+      <div class="promo-bg-glyph">👨‍👩‍👧</div>
+      <div class="promo-tag">Keluarga</div>
+      <div class="promo-name">Paket Family Getaway</div>
+      <div class="promo-desc">Bepergian dengan min. 4 anggota keluarga dan hemat lebih banyak. Gratis bagasi ekstra untuk anak-anak.</div>
+      <div class="promo-discount">25% <span>off</span></div>
+      <div class="promo-period">Berlaku hingga 31 Agustus 2026</div>
+    </div>
+  </div>
+</section>
+
+<!-- BAGGAGE -->
+<section id="baggage">
+  <div class="baggage-grid">
+    <div class="bag-visual">
+      <div class="bag-row">
+        <div class="bag-icon">👜</div>
+        <div class="bag-info">
+          <div class="bag-cat">Bagasi Kabin</div>
+          <div class="bag-detail">Maks. 7 kg • 40×30×20 cm</div>
+        </div>
+        <div class="bag-fee">Gratis</div>
+      </div>
+      <div class="bag-row">
+        <div class="bag-icon">🧳</div>
+        <div class="bag-info">
+          <div class="bag-cat">Bagasi Terdaftar — Standar</div>
+          <div class="bag-detail">Hingga 20 kg • Kelas Ekonomi</div>
+        </div>
+        <div class="bag-fee">Rp 75rb</div>
+      </div>
+      <div class="bag-row">
+        <div class="bag-icon">📦</div>
+        <div class="bag-info">
+          <div class="bag-cat">Bagasi Ekstra</div>
+          <div class="bag-detail">Tambahan per 5 kg</div>
+        </div>
+        <div class="bag-fee">Rp 45rb/5kg</div>
+      </div>
+      <div class="bag-row">
+        <div class="bag-icon">🎸</div>
+        <div class="bag-info">
+          <div class="bag-cat">Barang Bawaan Khusus</div>
+          <div class="bag-detail">Alat musik, olahraga, dll</div>
+        </div>
+        <div class="bag-fee">Rp 150rb</div>
+      </div>
+      <div class="bag-row">
+        <div class="bag-icon">🐾</div>
+        <div class="bag-info">
+          <div class="bag-cat">Hewan Peliharaan</div>
+          <div class="bag-detail">Kargo hewan — maks. 8 kg</div>
+        </div>
+        <div class="bag-fee">Rp 200rb</div>
+      </div>
+    </div>
+    <div class="bag-text">
+      <div class="section-eyebrow">Ketentuan Bagasi</div>
+      <h3>Semua yang Perlu<br>Anda Tahu</h3>
+      <p>KicauAir memberikan fleksibilitas terbaik dalam hal bagasi. Pilih paket bagasi yang sesuai kebutuhan perjalanan Anda — mulai dari weekend trip ringan hingga liburan keluarga panjang.</p>
+      <p>Bagasi Business Class dan First Class sudah termasuk bagasi terdaftar gratis hingga 30 kg. Biaya tambahan berlaku untuk kelebihan berat.</p>
+      <button class="btn-primary">Tambah Bagasi →</button>
+    </div>
+  </div>
+</section>
+
+<!-- CHECK-IN -->
+<section class="checkin" id="checkin">
+  <div class="section-eyebrow">Panduan Check-In</div>
+  <div class="section-title">Check-In Mudah,<br>Tanpa Antre Panjang</div>
+  <div class="checkin-steps">
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <div class="step-title">Buka Aplikasi</div>
+      <div class="step-desc">Unduh aplikasi KicauAir atau kunjungi website kami. Login dengan akun Anda.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <div class="step-title">Masukkan Kode Booking</div>
+      <div class="step-desc">Masukkan kode pemesanan 6 digit dan nama belakang Anda untuk mengakses tiket.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <div class="step-title">Pilih Kursi</div>
+      <div class="step-desc">Pilih kursi favorit Anda dari peta kabin yang tersedia. Konfirmasi pilihan Anda.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">4</div>
+      <div class="step-title">Unduh Boarding Pass</div>
+      <div class="step-desc">Simpan boarding pass ke wallet atau cetak. Tunjukkan saat pemeriksaan di bandara.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FLEET -->
+<section id="fleet">
+  <div class="section-eyebrow">Armada Kami</div>
+  <div class="section-title">Pesawat Modern,<br>Penerbangan Aman</div>
+  <div class="fleet-grid">
+    <div class="fleet-card">
+      <div class="fleet-icon">✈️</div>
+      <div class="fleet-name">Boeing 737-800</div>
+      <div class="fleet-type">Narrow-body • Rute Pendek & Menengah</div>
+      <div class="fleet-stats">
+        <div class="fleet-stat"><span class="fleet-stat-label">Kapasitas Ekonomi</span><span class="fleet-stat-val">162 kursi</span></div>
+        <div class="fleet-stat"><span class="fleet-stat-label">Kapasitas Bisnis</span><span class="fleet-stat-val">12 kursi</span></div>
+        <div class="fleet-stat"><span class="fleet-stat-label">Jangkauan Maks</span><span class="fleet-stat-val">5.765 km</span></div>
+        <div class="fleet-stat"><span class="fleet-stat-label">Dalam Armada</span><span class="fleet-stat-val">14 unit</span></div>
+      </div>
+      <div class="fleet-status">● Aktif Beroperasi</div>
+    </div>
+    <div class="fleet-card">
+      <div class="fleet-icon">🛫</div>
+      <div class="fleet-name">Airbus A320neo</div>
+      <div class="fleet-type">Narrow-body • Efisien & Modern</div>
+      <div class="fleet-stats">
+        <div class="fleet-stat"><span class="fleet-stat-label">Kapasitas Ekonomi</span><span class="fleet-stat-val">150 kursi</span></div>
+        <div class="fleet-stat"><span class="fleet-stat-label">Kapasitas Bisnis</span><span class="fleet-stat-val">16 kursi</span></div>
+        <div class="fleet-stat"><span class="fleet-stat-label">Jangkauan Maks</span><span class="fleet-stat-val">6.300 km</span></div>
+        <div class="fleet-stat"><span class="fleet-stat-label">Dalam Armada</span><span class="fleet-stat-val">8 unit</span></div>
+      </div>
+      <div class="fleet-status">● Aktif Beroperasi</div>
+    </div>
+    <div class="fleet-card">
+      <div class="fleet-icon">🛩️</div>
+      <div class="fleet-name">ATR 72-600</div>
+      <div class="fleet-type">Turboprop • Rute Perintis</div>
+      <div class="fleet-stats">
+        <div class="fleet-stat"><span class="fleet-stat-label">Kapasitas Ekonomi</span><span class="fleet-stat-val">70 kursi</span></div>
+        <div class="fleet-stat"><span class="fleet-stat-label">Kapasitas Bisnis</span><span class="fleet-stat-val">—</span></div>
+        <div class="fleet-stat"><span class="fleet-stat-label">Jangkauan Maks</span><span class="fleet-stat-val">1.528 km</span></div>
+        <div class="fleet-stat"><span class="fleet-stat-label">Dalam Armada</span><span class="fleet-stat-val">2 unit</span></div>
+      </div>
+      <div class="fleet-status">● Aktif Beroperasi</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo" style="font-size:1.25rem;">
+        <div class="logo-bird" style="width:30px;height:30px;font-size:15px;">🐦</div>
+        Kicau<span>Air</span>
+      </div>
+      <p class="footer-tagline" style="margin-top:1rem;">
+        Maskapai penerbangan domestik terpercaya Indonesia. Menghubungkan seluruh Nusantara dengan pelayanan hangat dan keselamatan terjamin.
+      </p>
+    </div>
+    <div class="footer-col">
+      <h4>Penerbangan</h4>
+      <ul>
+        <li><a href="#">Pesan Tiket</a></li>
+        <li><a href="#">Cek Status Penerbangan</a></li>
+        <li><a href="#">Check-In Online</a></li>
+        <li><a href="#">Refund & Reschedule</a></li>
+        <li><a href="#">Semua Rute</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Layanan</h4>
+      <ul>
+        <li><a href="#">Bagasi Tambahan</a></li>
+        <li><a href="#">Pilih Kursi</a></li>
+        <li><a href="#">Makanan Spesial</a></li>
+        <li><a href="#">Asuransi Perjalanan</a></li>
+        <li><a href="#">KicauMiles</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Perusahaan</h4>
+      <ul>
+        <li><a href="#">Tentang Kami</a></li>
+        <li><a href="#">Karir</a></li>
+        <li><a href="#">Berita</a></li>
+        <li><a href="#">Hubungi Kami</a></li>
+        <li><a href="#">Kebijakan Privasi</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 KicauAir. Semua hak dilindungi undang-undang.</span>
+    <span>📞 0800-KICAU-AIR &nbsp;|&nbsp; ✉ halo@kicauair.co.id</span>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h2>✈ Penerbangan Tersedia</h2>
+    <p>Jakarta (CGK) → Bali (DPS) • 15 Jun 2026 • 1 Dewasa</p>
+    <div class="flight-result" onclick="closeModal()">
+      <div>
+        <div class="flight-route">KA 101 — 06:00 → 07:30</div>
+        <div class="flight-time">Durasi 1j 30m • Langsung</div>
+      </div>
+      <div class="flight-fare">
+        <strong>Rp 420.000</strong>
+        <small>Ekonomi</small>
+      </div>
+    </div>
+    <div class="flight-result" onclick="closeModal()">
+      <div>
+        <div class="flight-route">KA 205 — 10:30 → 12:00</div>
+        <div class="flight-time">Durasi 1j 30m • Langsung</div>
+      </div>
+      <div class="flight-fare">
+        <strong>Rp 385.000</strong>
+        <small>Ekonomi</small>
+      </div>
+    </div>
+    <div class="flight-result" onclick="closeModal()">
+      <div>
+        <div class="flight-route">KA 318 — 15:45 → 17:15</div>
+        <div class="flight-time">Durasi 1j 30m • Langsung</div>
+      </div>
+      <div class="flight-fare">
+        <strong>Rp 1.240.000</strong>
+        <small>Bisnis</small>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Stars
+  const starsEl = document.getElementById('stars');
+  for (let i = 0; i < 80; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 2 + 1;
+    s.style.cssText = `
+      width:${size}px; height:${size}px;
+      left:${Math.random()*100}%;
+      top:${Math.random()*100}%;
+      animation-delay:${Math.random()*3}s;
+      animation-duration:${2+Math.random()*3}s;
+    `;
+    starsEl.appendChild(s);
+  }
+
+  function setTab(el, label) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  function openModal() { document.getElementById('modal').classList.add('open'); }
+  function closeModal() { document.getElementById('modal').classList.remove('open'); }
+  document.getElementById('modal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+</script>
+</body>
+</html>
